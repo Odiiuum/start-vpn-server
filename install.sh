@@ -4,9 +4,11 @@
 apt update && apt upgrade -y
 
 # Create user and assign password and add user to sudo group
-useradd -m -s /bin/bash serg
-echo "serg:csPDWnWK2020" | chpasswd
-usermod -aG sudo serg
+read -p "Enter new username: " NEW_USER
+read -p "Enter new password: " NEW_PASSWORD
+
+useradd -m -s /bin/bash $NEW_USERЫ
+echo "$NEW_USER:$NEW_PASSWORD" | chpasswd
 
 #Change privilegies 
 chmode -R 777 /root/start-vpn-install
