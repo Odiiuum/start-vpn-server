@@ -11,7 +11,7 @@ useradd -m -s /bin/bash $NEW_USER
 echo "$NEW_USER:$NEW_PASSWORD" | chpasswd
 
 #Change privilegies 
-chmod -R 700 /root/start-vpn-install/
+chmod -R 700 /root/start-vpn-server/
 
 # Run vpn-install/ipsec/install.sh script
 bash /root/start-vpn-server/ipsec/install.sh
