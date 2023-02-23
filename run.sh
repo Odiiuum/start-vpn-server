@@ -8,6 +8,9 @@ useradd -m -s /bin/bash serg
 echo "serg:csPDWnWK2020" | chpasswd
 usermod -aG sudo serg
 
+#Change privilegies 
+chmode -R 777 /root/start-vpn-install
+
 # Run vpn-install/ipsec/install.sh script
 bash ipsec/install.sh
 
