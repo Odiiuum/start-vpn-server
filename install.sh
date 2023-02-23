@@ -14,7 +14,7 @@ echo "$NEW_USER:$NEW_PASSWORD" | chpasswd
 chmod -R 777 /root/start-vpn-install
 
 # Run vpn-install/ipsec/install.sh script
-bash ipsec/install.sh
+bash /root/start-vpn-server/ipsec/install.sh
 
 # Edit file /etc/xl2tpd/xl2tpd.conf
 
