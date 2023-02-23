@@ -7,11 +7,11 @@ apt update && apt upgrade -y
 read -p "Enter new username: " NEW_USER
 read -p "Enter new password: " NEW_PASSWORD
 
-useradd -m -s /bin/bash $NEW_USERЫ
+useradd -m -s /bin/bash $NEW_USER
 echo "$NEW_USER:$NEW_PASSWORD" | chpasswd
 
 #Change privilegies 
-chmod -R 777 /root/start-vpn-install
+chmod -R 700 /root/start-vpn-install/
 
 # Run vpn-install/ipsec/install.sh script
 bash /root/start-vpn-server/ipsec/install.sh
