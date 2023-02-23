@@ -11,7 +11,7 @@ useradd -m -s /bin/bash $NEW_USERЫ
 echo "$NEW_USER:$NEW_PASSWORD" | chpasswd
 
 #Change privilegies 
-chmode -R 777 /root/start-vpn-install
+chmod -R 777 /root/start-vpn-install
 
 # Run vpn-install/ipsec/install.sh script
 bash ipsec/install.sh
@@ -23,6 +23,7 @@ read -p "Enter IP range (e.g. 10.10.10.100-10.10.10.254): " ip_range
 
 # Get the first IP address from the range
 local_ip=$(echo $ip_range | cut -d '-' -f 1 | awk -F'.' '{print $1"."$2"."$3".1"}')
+subnet="${local_ip%.*}.0/24"
 
 # Update xl2tpd.conf with user input
 sed -i "s/ip range = .*/ip range = $ip_range/g" /etc/xl2tpd/xl2tpd.conf
@@ -34,7 +35,7 @@ sed -i "s/^mru.*/mru 1400/g" /etc/ppp/options.xl2tpd
 
 # Set up SNAT rule
 ext_ip=$(curl -s http://checkip.amazonaws.com)
-sudo iptables -t nat -A POSTROUTING -s $ip_range -j SNAT --to-source $ext_ip
+sudo iptables -t nat -A POSTROUTING -s $subnet -j SNAT --to-source $ext_ip
 sudo iptables-save | sudo tee /etc/iptables/rules.v4
 
 # Restart services
