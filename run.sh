@@ -35,3 +35,8 @@ ipsec restart
 # Disable root login via SSH
 sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
 systemctl restart sshd
+
+# Set up SNAT rule
+ext_ip=$(curl -s http://checkip.amazonaws.com)
+sudo iptables -t nat -A POSTROUTING -s $ip_range -j SNAT --to-source $ext_ip
+sudo iptables-save | sudo tee /etc/iptables/rules.v4
