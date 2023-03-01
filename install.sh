@@ -9,6 +9,7 @@ read -p "Enter new password: " NEW_PASSWORD
 
 useradd -m -s /bin/bash $NEW_USER
 echo "$NEW_USER:$NEW_PASSWORD" | chpasswd
+usermod -aG sudo $NEW_USER
 
 #Change privilegies 
 chmod -R 700 /root/start-vpn-server/
